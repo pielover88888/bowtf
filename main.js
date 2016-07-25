@@ -8,10 +8,10 @@ function preload() {
 function setup() {
 	// Create the canvas
 	createCanvas(720, 400);
-	background(130);
 	boids = new Boids(10);
 }
 function draw() {
 	clear();
+	background(130);
 	boids.draw();
 }
