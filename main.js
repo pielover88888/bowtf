@@ -6,9 +6,9 @@ function preload() {
 function setup() {
 	// Create the canvas
 	createCanvas(720, 400);
-	background(200);
+	background(5);
 }
 
 function draw() {
-  image(img, 0, 0);
+  image(img, 0, 0, 10,20);
 }
