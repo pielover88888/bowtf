@@ -6,13 +6,14 @@ function preload() {
 function setup() {
 	// Create the canvas
 	createCanvas(720, 400);
-	background(130);
 }
 x = 150;
 y = 100;
 function draw() {
+	clear();
+	background(130);
 	translate(x,y);
-	rotate(0.9);
+	rotate(10);
 	image(img,0,0);
 	translate(-x,-y);
 }
