@@ -20,9 +20,13 @@ Boids.prototype.gen = function() {
 /* Draws the flock */
 Boids.prototype.draw = function() {
 	for (var i = 0; i < this.points.length; i++) {
+
 		/* Intergrate velocity */
 		this.points[i].x += this.points[i].vx
 		this.points[i].y += this.points[i].vy
+		this.points[i].vx *= 0.98
+		this.points[i].vy *= 0.98
+
 		/* Teleport */
 		if (this.points[i].x < 0) {
 			this.points[i].x = width
