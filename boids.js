@@ -53,6 +53,7 @@ Boids.prototype.draw = function() {
 		push()
 		translate(this.points[i].x, this.points[i].y)
 		rotate(this.points[i].angle+1.5)
+		tint(0, 200, 250)
 		image(this.img,0-this.img.width/4,0-this.img.height/4,this.img.width/2,this.img.height/2)
 		strokeWeight(10);
 		point(0,0);
