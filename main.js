@@ -13,5 +13,5 @@ function setup() {
 function draw() {
 	clear();
 	background(130);
-	boids.draw();
+	boids.draw(); // important bit
 }
