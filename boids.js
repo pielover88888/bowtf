@@ -23,7 +23,6 @@ Boids.prototype.draw = function() {
 		/* Intergrate velocity */
 		this.points[i].x += this.points[i].vx
 		this.points[i].y += this.points[i].vy
-		console.log(this.points[i].vy)
 		/* Teleport */
 		if (this.points[i].x < 0) {
 			this.points[i].x = width
