@@ -2,6 +2,17 @@ var distance = function(x1,y1,x2,y2){
 	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
 }
 
+var avg_angle = function(angles){
+	var x = 0
+	var y = 0
+	for (var i = 0; i < angles.length; i++) {
+		angle = angles[i]
+		x += Math.cos(angle)
+		y += Math.sin(angle)
+	}
+	return Math.atan2(y, x)
+}
+
 /* Init */
 var Boids = function(count) {
 	this.count = count
@@ -34,6 +45,16 @@ Boids.prototype.getneighbours = function(n) {
 	return neighbours
 }
 
+/* Steer towards the average heading direction */
+Boids.prototype.align = function(i){
+		var neighbours = this.getneighbours(i)
+		var avg = avg_angle(neighbours)
+
+		neighbours.forEach(function(n){
+			this.points[n].angle = avg 
+		})
+}
+
 /* Draws the flock */
 Boids.prototype.draw = function() {
 	for (var i = 0; i < this.points.length; i++) {
@@ -62,6 +83,8 @@ Boids.prototype.draw = function() {
 			this.points[i].y = 0
 		}
 
+		/* Life */
+		this.align(i)
 		/* Draw */ 
 		push()
 		translate(this.points[i].x, this.points[i].y)
