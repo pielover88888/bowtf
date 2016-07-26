@@ -1,13 +1,13 @@
+var distance = function(x1,y1,x2,y2){
+	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+}
+
 /* Init */
 var Boids = function(count) {
 	this.count = count
 	this.points = []
 	this.img = loadImage("assets/triangle_white.png");
 	this.gen()
-}
-
-Boids.prototype.distance = function(x1,y1,x2,y2){
-	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
 }
 
 /* Generates the flock */
@@ -19,6 +19,19 @@ Boids.prototype.gen = function() {
 			"angle":random(TWO_PI),
 		}
 	}
+}
+
+/* Get neighbours */
+Boids.prototype.getneighbours = function(n) {
+	var d
+	var neighbours = []
+	for (var i = 0; i < this.points.length; i++) {
+		d = distance(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
+		if (i!=n && d < 65){
+			neighbours.push(i)
+		}
+	}
+	return neighbours
 }
 
 /* Draws the flock */
