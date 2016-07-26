@@ -39,7 +39,7 @@ Boids.prototype.draw = function() {
 		/* Draw */ 
 		push()
 		translate(this.points[i].x, this.points[i].y)
-		rotate(point.angle)
+		rotate(this.points[i].angle)
 		image(this.img,0-this.img.width/4,0-this.img.height/4,this.img.width/2,this.img.height/2)
 		translate(-this.points[i].x, -this.points[i].y)
 		pop()
