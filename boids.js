@@ -51,7 +51,7 @@ Boids.prototype.draw = function() {
 			stroke(0,255,0);
 		}
 		strokeWeight(10);
-		point(this.points[i].x,this.points[i].y)
+		point(0,0);
 		translate(-this.points[i].x, -this.points[i].y)
 		pop()
 	}
