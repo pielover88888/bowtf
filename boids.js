@@ -6,6 +6,10 @@ var Boids = function(count) {
 	this.gen()
 }
 
+Boids.prototype.distance = function(x1,y1,x2,y2){
+	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+}
+
 /* Generates the flock */
 Boids.prototype.gen = function() {
 	for (var i = 0; i < this.count; i++) {
