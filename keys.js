@@ -24,4 +24,3 @@ function checkKey(e) {
 	if(boids.points[0].angle > TWO_PI){boids.points[0].angle = 0;}
 	if(boids.points[0].angle < 0){boids.points[0].angle = TWO_PI;}
 }
-
