@@ -24,7 +24,8 @@ var Boids = function(count) {
 	this.points = []
 	this.img = loadImage("assets/triangle_white.png");
 	this.gen()
-	this.nradius = 65
+	this.nradius = 50
+	this.close = this.nradius/4
 }
 
 /* Generates the flock */
@@ -43,25 +44,38 @@ Boids.prototype.getneighbours = function(n) {
 	var d
 	var neighbours = []
 	var neighbours_angles = []
+	var distances = []
 	for (var i = 0; i < this.points.length; i++) {
 		d = distance(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
 
 		if (i!=n && d < this.nradius){
 			neighbours.push(i)
 			neighbours_angles.push(this.points[i].angle)
+			distances.push(d)
 		}
 	}
-	return {"indexs":neighbours,"angles":neighbours_angles}
+	return {"indexes":neighbours,"angles":neighbours_angles,"distances":distances}
 }
 
 /* Steer towards the average heading direction */
-Boids.prototype.align = function(i){
-		var neighbours = this.getneighbours(i)
-		var avg = avg_angle(neighbours.angles);
-		console.log(player.angle) // fails
-		for (var j = 0; j < neighbours.indexs.length; j++) {
-			var n = neighbours.indexs[j]
+Boids.prototype.align = function(i, neighbours){
+		
+		var avg = avg_angle(neighbours.angles)
+
+		for (var j = 0; j < neighbours.indexes.length; j++) {
+			var n = neighbours.indexes[j]
 			this.points[n].angle = avg
+		}
+}
+
+/* Steer away if too close to neighbours */
+Boids.prototype.seperation = function(i, neighbours){
+		for (var j = 0; j < neighbours.indexes.length; j++) {
+			var n = neighbours.indexes[j]
+			var d = neighbours.distances[j]
+			if (i!=n && d <= this.close){
+				this.points[n].angle = -(this.points[n].angle * 0.40)
+			}
 		}
 }
 
@@ -94,7 +108,10 @@ Boids.prototype.draw = function() {
 		}
 
 		/* Life */
-		this.align(i)
+		var neighbours = this.getneighbours(i)
+		this.align(i,neighbours)
+		this.seperation(i,neighbours)
+		
 		/* Draw */ 
 		push()
 		translate(this.points[i].x, this.points[i].y)
