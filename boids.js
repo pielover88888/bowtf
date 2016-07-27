@@ -82,8 +82,10 @@ Boids.prototype.draw = function() {
 
 	for (var i = 0; i < this.points.length; i++) {
 		/* Intergrate velocity */
-		this.points[i].vx = Math.cos(this.points[i].angle)
-		this.points[i].vy = Math.sin(this.points[i].angle)
+		if(random(1) > 0.9){
+			this.points[i].vx = Math.cos(this.points[i].angle)
+			this.points[i].vy = Math.sin(this.points[i].angle)
+		}
 
 		this.points[i].x += this.points[i].vx
 		this.points[i].y += this.points[i].vy
