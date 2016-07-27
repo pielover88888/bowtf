@@ -107,7 +107,7 @@ Boids.prototype.draw = function() {
 		pop()
 		fill(255,255,255)
 		text([i],this.points[i].x,this.points[i].y + 5)
-		text(this.points[i].angle,this.points[i].x,this.points[i].y + 15) // text
+		text(Math.round((this.points[i].angle) * (180/PI)),this.points[i].x,this.points[i].y + 15) // text
 		fill(0,0,0)
 
 	}
