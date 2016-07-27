@@ -19,6 +19,7 @@ var Boids = function(count) {
 	this.points = []
 	this.img = loadImage("assets/triangle_white.png");
 	this.gen()
+	this.nradius = 65
 }
 
 /* Generates the flock */
@@ -39,7 +40,8 @@ Boids.prototype.getneighbours = function(n) {
 	var neighbours_angles = []
 	for (var i = 0; i < this.points.length; i++) {
 		d = distance(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
-		if (i!=n && d < 65){
+
+		if (i!=n && d < this.nradius){
 			neighbours.push(i)
 			neighbours_angles.push(this.points[i].angle)
 		}
@@ -52,13 +54,15 @@ Boids.prototype.align = function(i){
 		var neighbours = this.getneighbours(i)
 		var avg = avg_angle(neighbours.angles)
 
-		neighbours.indexs.forEach(function(n){
-			this.points[n].angle = avg 
-		})
+		for (var j = 0; j < neighbours.indexs.length; j++) {
+			var n = neighbours.indexs[j]
+			this.points[n].angle = avg
+		}
 }
 
 /* Draws the flock */
 Boids.prototype.draw = function() {
+
 	for (var i = 0; i < this.points.length; i++) {
 
 		/* Intergrate velocity */
