@@ -1,9 +1,4 @@
 var distance = function(x1,y1,x2,y2){
-	if( Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) ) < 64){
-		stroke(255);
-		line(x1,y1,x2,y2);
-	}
-	stroke(0);
 	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
 }
 
@@ -45,10 +40,13 @@ Boids.prototype.getneighbours = function(n) {
 	var neighbours = []
 	var neighbours_angles = []
 	var distances = []
+	
+	stroke(0)
 	for (var i = 0; i < this.points.length; i++) {
 		d = distance(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
-
+		
 		if (i!=n && d < this.nradius){
+			line(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
 			neighbours.push(i)
 			neighbours_angles.push(this.points[i].angle)
 			distances.push(d)
@@ -111,7 +109,7 @@ Boids.prototype.draw = function() {
 		var neighbours = this.getneighbours(i)
 		this.align(i,neighbours)
 		this.seperation(i,neighbours)
-		
+
 		/* Draw */ 
 		push()
 		translate(this.points[i].x, this.points[i].y)
