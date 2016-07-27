@@ -36,21 +36,23 @@ Boids.prototype.gen = function() {
 Boids.prototype.getneighbours = function(n) {
 	var d
 	var neighbours = []
+	var neighbours_angles = []
 	for (var i = 0; i < this.points.length; i++) {
 		d = distance(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
 		if (i!=n && d < 65){
 			neighbours.push(i)
+			neighbours_angles.push(this.points[i].angle)
 		}
 	}
-	return neighbours
+	return {"indexs":neighbours,"angles":neighbours_angles}
 }
 
 /* Steer towards the average heading direction */
 Boids.prototype.align = function(i){
 		var neighbours = this.getneighbours(i)
-		var avg = avg_angle(neighbours)
+		var avg = avg_angle(neighbours.angles)
 
-		neighbours.forEach(function(n){
+		neighbours.indexs.forEach(function(n){
 			this.points[n].angle = avg 
 		})
 }
