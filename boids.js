@@ -1,4 +1,9 @@
 var distance = function(x1,y1,x2,y2){
+	if( Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) ) < 64){
+		stroke(255);
+		line(x1,y1,x2,y2);
+	}
+	stroke(0);
 	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
 }
 
@@ -52,8 +57,8 @@ Boids.prototype.getneighbours = function(n) {
 /* Steer towards the average heading direction */
 Boids.prototype.align = function(i){
 		var neighbours = this.getneighbours(i)
-		var avg = avg_angle(neighbours.angles)
-
+		var avg = avg_angle(neighbours.angles);
+		console.log(player.angle) // fails
 		for (var j = 0; j < neighbours.indexs.length; j++) {
 			var n = neighbours.indexs[j]
 			this.points[n].angle = avg
@@ -64,7 +69,6 @@ Boids.prototype.align = function(i){
 Boids.prototype.draw = function() {
 
 	for (var i = 0; i < this.points.length; i++) {
-
 		/* Intergrate velocity */
 		this.points[i].vx = Math.cos(this.points[i].angle)
 		this.points[i].vy = Math.sin(this.points[i].angle)
@@ -101,5 +105,10 @@ Boids.prototype.draw = function() {
 		point(0,0);
 		translate(-this.points[i].x, -this.points[i].y)
 		pop()
+		fill(255,255,255)
+		text([i],this.points[i].x,this.points[i].y + 5)
+		text(this.points[i].angle,this.points[i].x,this.points[i].y + 15) // text
+		fill(0,0,0)
+
 	}
 }
