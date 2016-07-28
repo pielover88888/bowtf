@@ -63,6 +63,9 @@ Boids.prototype.getneighbours = function(n) {
 			neighbours_angles.push(this.points[i].angle)
 			distances.push(d)
 		}
+	/*strokeWeight(10);
+	point(ax,ay);
+	strokeWeight(1);*/
 	}
 	return {"indexes":neighbours,"angles":neighbours_angles,"distances":distances,ax:ax/ncount,ay:ay/ncount}
 }
@@ -96,7 +99,6 @@ Boids.prototype.cohesion = function(i, neighbours){
 		for (var j = 0; j < neighbours.indexes.length; j++) {
 			var n = neighbours.indexes[j]
 			var angle = Math.atan2(neighbours.ay-this.points[n].y,neighbours.ax-this.points[n].x)
-			console.log(angle)
 			this.points[n].angle = angle
 		}
 }
@@ -132,26 +134,25 @@ this.nradius = this.slider.value()
 		}
 
 		/* Life */
-		var neighbours = this.getneighbours(i)
-		this.align(i,neighbours)
-		this.seperation(i,neighbours)
-		this.cohesion(i,neighbours)
+		var neighbours = this.getneighbours(i);
+		this.align(i,neighbours);
+		this.seperation(i,neighbours);
+		//this.cohesion(i,neighbours);
 
 		/* Draw */ 
-		push()
-		translate(this.points[i].x, this.points[i].y)
-		rotate(this.points[i].angle+1.5)
-		console.log(colors[this.points[i].color - 1])
-		tint(colors[this.points[i].color - 1])
-		image(this.img,0-this.img.width/4,0-this.img.height/4,this.img.width/2,this.img.height/2)
+		push();
+		translate(this.points[i].x, this.points[i].y);
+		rotate(this.points[i].angle+1.5);
+		tint(colors[this.points[i].color - 1]);
+		image(this.img,0-this.img.width/4,0-this.img.height/4,this.img.width/2,this.img.height/2);
 		strokeWeight(10);
 		point(0,0);
-		translate(-this.points[i].x, -this.points[i].y)
-		pop()
-		fill(255,255,255)
-		text([i],this.points[i].x,this.points[i].y + 5)
-		text(Math.round((this.points[i].angle) * (180/PI)),this.points[i].x,this.points[i].y + 15) // text
-		fill(0,0,0)
+		translate(-this.points[i].x, -this.points[i].y);
+		pop();
+		fill(255,255,255);
+		text([i],this.points[i].x,this.points[i].y + 5);
+		text(Math.round((this.points[i].angle) * (180/PI)),this.points[i].x,this.points[i].y + 15); // text
+		fill(0,0,0);
 
 	}
 }
