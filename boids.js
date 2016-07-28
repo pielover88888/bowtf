@@ -78,6 +78,7 @@ Boids.prototype.align = function(i, neighbours){
 		}
 }
 
+
 /* Steer away if too close to neighbours */
 Boids.prototype.seperation = function(i, neighbours){
 		for (var j = 0; j < neighbours.indexes.length; j++) {
@@ -88,6 +89,7 @@ Boids.prototype.seperation = function(i, neighbours){
 			}
 		}
 }
+var colors = ["#AAAA00","#00C8FA","#F0C8FA","#00C80A"]
 
 /* Steer to a avg. pos */
 Boids.prototype.cohesion = function(i, neighbours){
@@ -139,11 +141,8 @@ this.nradius = this.slider.value()
 		push()
 		translate(this.points[i].x, this.points[i].y)
 		rotate(this.points[i].angle+1.5)
-		if(this.points[i].color < 2){
-			tint(255,0,0)
-		} else{
-			tint(0, 200, 250)
-		}
+		console.log(colors[this.points[i].color - 1])
+		tint(colors[this.points[i].color - 1])
 		image(this.img,0-this.img.width/4,0-this.img.height/4,this.img.width/2,this.img.height/2)
 		strokeWeight(10);
 		point(0,0);
