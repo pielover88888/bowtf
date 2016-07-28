@@ -99,7 +99,9 @@ Boids.prototype.cohesion = function(i, neighbours){
 		for (var j = 0; j < neighbours.indexes.length; j++) {
 			var n = neighbours.indexes[j]
 			var angle = Math.atan2(neighbours.ay-this.points[n].y,neighbours.ax-this.points[n].x)
-			this.points[n].angle = angle
+			if(distance(this.points[i].x,this.points[i].y,neighbours.ax,neighbours.ay) > this.nradius - 20){
+				this.points[n].angle = angle
+			}
 		}
 }
 
@@ -137,7 +139,7 @@ this.nradius = this.slider.value()
 		var neighbours = this.getneighbours(i);
 		this.align(i,neighbours);
 		this.seperation(i,neighbours);
-		//this.cohesion(i,neighbours);
+		this.cohesion(i,neighbours);
 
 		/* Draw */ 
 		push();
