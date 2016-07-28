@@ -43,7 +43,9 @@ Boids.prototype.getneighbours = function(n) {
 	var neighbours = []
 	var neighbours_angles = []
 	var distances = []
-	
+	var ax = 0
+	var ay = 0
+	var ncount = 0
 	stroke(0)
 	for (var i = 0; i < this.points.length; i++) {
 		d = distance(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
@@ -51,16 +53,18 @@ Boids.prototype.getneighbours = function(n) {
 		if(i!=n && pd < this.nradius){
 			line(this.points[n].x,this.points[n].y,player.x,player.y)
 			neighbours_angles.push(player.angle)
-			neighbours_angles.push(player.angle)
 		}
 		if (i!=n && d < this.nradius){
+			ax += this.points[i].x
+			ay += this.points[i].y
+			ncount += 1
 			line(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
 			neighbours.push(i)
 			neighbours_angles.push(this.points[i].angle)
 			distances.push(d)
 		}
 	}
-	return {"indexes":neighbours,"angles":neighbours_angles,"distances":distances}
+	return {"indexes":neighbours,"angles":neighbours_angles,"distances":distances,ax:ax/ncount,ay:ay/ncount}
 }
 
 /* Steer towards the average heading direction */
@@ -82,6 +86,16 @@ Boids.prototype.seperation = function(i, neighbours){
 			if (d <= this.close){
 				this.points[n].angle = -(this.points[n].angle)
 			}
+		}
+}
+
+/* Steer to a avg. pos */
+Boids.prototype.cohesion = function(i, neighbours){
+		for (var j = 0; j < neighbours.indexes.length; j++) {
+			var n = neighbours.indexes[j]
+			var angle = Math.atan2(neighbours.ay-this.points[n].y,neighbours.ax-this.points[n].x)
+			console.log(angle)
+			this.points[n].angle = angle
 		}
 }
 
@@ -119,6 +133,7 @@ this.nradius = this.slider.value()
 		var neighbours = this.getneighbours(i)
 		this.align(i,neighbours)
 		this.seperation(i,neighbours)
+		this.cohesion(i,neighbours)
 
 		/* Draw */ 
 		push()
