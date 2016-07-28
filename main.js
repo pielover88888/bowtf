@@ -8,7 +8,7 @@ function preload() {
 function setup() {
 	// Create the canvas
 	createCanvas(720, 400);
-	boids = new Boids(10);
+	boids = new Boids(20);
 	player = new Player();
 }
 function draw() {

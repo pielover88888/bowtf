@@ -19,8 +19,8 @@ var Boids = function(count) {
 	this.points = []
 	this.img = loadImage("assets/triangle_white.png");
 	this.gen()
-	this.nradius = 50
-	this.close = this.nradius/4
+	this.nradius = 70
+	this.close = 20
 }
 
 /* Generates the flock */
@@ -76,8 +76,8 @@ Boids.prototype.seperation = function(i, neighbours){
 		for (var j = 0; j < neighbours.indexes.length; j++) {
 			var n = neighbours.indexes[j]
 			var d = neighbours.distances[j]
-			if (i!=n && d <= this.close){
-				this.points[n].angle = -(this.points[n].angle * 0.40)
+			if (d <= this.close){
+				this.points[n].angle = -(this.points[n].angle)
 			}
 		}
 }
