@@ -21,6 +21,8 @@ var Boids = function(count) {
 	this.gen()
 	this.nradius = 70
 	this.close = 20
+	this.slider = createSlider(0, 255, 100);
+	this.slider.position(10,40)
 }
 
 /* Generates the flock */
@@ -84,7 +86,7 @@ Boids.prototype.seperation = function(i, neighbours){
 
 /* Draws the flock */
 Boids.prototype.draw = function() {
-
+this.nradius = this.slider.value()
 	for (var i = 0; i < this.points.length; i++) {
 		/* Intergrate velocity */
 		if(random(1) > 0.9){
