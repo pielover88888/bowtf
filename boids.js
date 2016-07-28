@@ -29,6 +29,7 @@ var Boids = function(count) {
 Boids.prototype.gen = function() {
 	for (var i = 0; i < this.count; i++) {
 		this.points[i] = {
+			"color":Math.round(random(1,4)),
 			"x":random(width),"y":random(height),
 			"vx":0,"vy":0,
 			"angle":random(TWO_PI),
@@ -123,7 +124,11 @@ this.nradius = this.slider.value()
 		push()
 		translate(this.points[i].x, this.points[i].y)
 		rotate(this.points[i].angle+1.5)
-		tint(0, 200, 250)
+		if(this.points[i].color < 2){
+			tint(255,0,0)
+		} else{
+			tint(0, 200, 250)
+		}
 		image(this.img,0-this.img.width/4,0-this.img.height/4,this.img.width/2,this.img.height/2)
 		strokeWeight(10);
 		point(0,0);
