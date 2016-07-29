@@ -66,10 +66,10 @@ Boids.prototype.getneighbours = function(n) {
 			neighbours_angles.push(this.points[i].angle)
 			distances.push(d)
 		}
+	}
 	strokeWeight(10);
 	point(ax,ay);
 	strokeWeight(1);
-	}
 	return {"indexes":neighbours,"angles":neighbours_angles,"distances":distances,ax:ax/ncount,ay:ay/ncount}
 }
 
