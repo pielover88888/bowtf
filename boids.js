@@ -55,6 +55,9 @@ Boids.prototype.getneighbours = function(n) {
 			neighbours_angles.push(player.angle)
 		}
 		if (i!=n && d < this.nradius){
+			if(this.points[i].color != this.points[n].color){
+                                continue;
+                        }
 			ax += this.points[i].x
 			ay += this.points[i].y
 			ncount += 1
