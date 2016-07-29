@@ -63,9 +63,9 @@ Boids.prototype.getneighbours = function(n) {
 			neighbours_angles.push(this.points[i].angle)
 			distances.push(d)
 		}
-	/*strokeWeight(10);
+	strokeWeight(10);
 	point(ax,ay);
-	strokeWeight(1);*/
+	strokeWeight(1);
 	}
 	return {"indexes":neighbours,"angles":neighbours_angles,"distances":distances,ax:ax/ncount,ay:ay/ncount}
 }
@@ -88,7 +88,7 @@ Boids.prototype.seperation = function(i, neighbours){
 			var n = neighbours.indexes[j]
 			var d = neighbours.distances[j]
 			if (d <= this.close){
-				this.points[n].angle = -(this.points[n].angle)
+				this.points[n].angle = -(this.points[n].angle*0.80)
 			}
 		}
 }
@@ -98,7 +98,7 @@ var colors = ["#AAAA00","#00C8FA","#F0C8FA","#00C80A"]
 Boids.prototype.cohesion = function(i, neighbours){
 		for (var j = 0; j < neighbours.indexes.length; j++) {
 			var n = neighbours.indexes[j]
-			var angle = Math.atan2(neighbours.ay-this.points[n].y,neighbours.ax-this.points[n].x)
+			var angle = Math.atan2(this.points[n].y-neighbours.ay,this.points[n].x-neighbours.ax)
 			if(distance(this.points[i].x,this.points[i].y,neighbours.ax,neighbours.ay) > this.nradius - 20){
 				this.points[n].angle = angle
 			}
