@@ -50,11 +50,13 @@ Boids.prototype.getneighbours = function(n) {
 	stroke(0)
 	for (var i = 0; i < this.points.length; i++) {
 		d = distance(this.points[n].x,this.points[n].y,this.points[i].x,this.points[i].y)
+		
 		pd = distance(this.points[n].x,this.points[n].y,player.x,player.y)
 		if(i!=n && pd < this.nradius){
 			line(this.points[n].x,this.points[n].y,player.x,player.y)
 			neighbours_angles.push(player.angle)
 		}
+
 		if (i!=n && d < this.nradius){
 			if(this.points[i].color != this.points[n].color && this.racebox.checked()){
                                 continue;
@@ -81,6 +83,10 @@ Boids.prototype.align = function(i, neighbours){
 
 		for (var j = 0; j < neighbours.indexes.length; j++) {
 			var n = neighbours.indexes[j]
+			var pd = distance(this.points[n].x,this.points[n].y,player.x,player.y)
+			if (pd < this.nradius){
+				avg = player.angle
+			}
 			this.points[n].angle = avg
 		}
 }
