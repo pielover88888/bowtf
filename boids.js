@@ -22,6 +22,7 @@ var Boids = function(count) {
 	this.nradius = 70
 	this.close = 20
 	this.slider = createSlider(0, 255, 100);
+	this.racebox = createCheckbox('Racism', false);
 	this.slider.position(10,40)
 }
 
@@ -55,7 +56,7 @@ Boids.prototype.getneighbours = function(n) {
 			neighbours_angles.push(player.angle)
 		}
 		if (i!=n && d < this.nradius){
-			if(this.points[i].color != this.points[n].color && window.location.hash === "#racism"){
+			if(this.points[i].color != this.points[n].color && this.racebox.checked()){
                                 continue;
                         }
 			ax += this.points[i].x
