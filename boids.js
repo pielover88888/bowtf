@@ -55,7 +55,7 @@ Boids.prototype.getneighbours = function(n) {
 			neighbours_angles.push(player.angle)
 		}
 		if (i!=n && d < this.nradius){
-			if(this.points[i].color != this.points[n].color && window.hash === "#racism"){
+			if(this.points[i].color != this.points[n].color && window.location.hash === "#racism"){
                                 continue;
                         }
 			ax += this.points[i].x
