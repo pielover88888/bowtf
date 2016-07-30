@@ -13,10 +13,13 @@ var avg_angle = function(angles){
 	return Math.atan2(y, x)
 }
 
+var colors = ["#17a92f","#585858","#d7dd00","#e84820"]
+
 /* Init */
 var Boids = function(count) {
 	this.count = count
 	this.points = []
+	this.pens = []
 	this.img = loadImage("assets/triangle_white.png");
 	this.gen()
 	this.nradius = 70
@@ -24,6 +27,8 @@ var Boids = function(count) {
 	this.slider = createSlider(0, 255, 100);
 	this.racebox = createCheckbox('Racism', false);
 	this.slider.position(10,40)
+
+	this.gen_pens()
 }
 
 /* Generates the flock */
@@ -102,7 +107,6 @@ Boids.prototype.seperation = function(i, neighbours){
 			}
 		}
 }
-var colors = ["#17a92f","#585858","#d7dd00","#e84820"]
 
 /* Steer to a avg. pos */
 Boids.prototype.cohesion = function(i, neighbours){
@@ -153,15 +157,10 @@ Boids.prototype.draw = function() {
 		this.seperation(i,neighbours);
 		this.cohesion(i,neighbours);
 		
-		for(var pen = 0; pen < colors.length; pen++){
-			stroke(colors[pen])
-			strokeWeight(40)
-			point(50 * (pen + 1),50*(pen + 1))
-			strokeWeight(1)
-			stroke(0)
-		}
+		/* Draw pens */
+		this.draw_pens()
 
-		/* Draw */ 
+		/* Draw boids */ 
 		push();
 		translate(this.points[i].x, this.points[i].y);
 		rotate(this.points[i].angle+1.5);
