@@ -102,7 +102,7 @@ Boids.prototype.seperation = function(i, neighbours){
 			}
 		}
 }
-var colors = ["#AAAA00","#00C8FA","#F0C8FA","#00C80A"]
+var colors = ["#17a92f","#585858","#d7dd00","#e84820"]
 
 /* Steer to a avg. pos */
 Boids.prototype.cohesion = function(i, neighbours){
@@ -117,7 +117,9 @@ Boids.prototype.cohesion = function(i, neighbours){
 
 /* Draws the flock */
 Boids.prototype.draw = function() {
-this.nradius = this.slider.value()
+	this.nradius = this.slider.value()
+
+
 	for (var i = 0; i < this.points.length; i++) {
 		/* Intergrate velocity */
 		if(random(1) > 0.9){
@@ -150,6 +152,14 @@ this.nradius = this.slider.value()
 		this.align(i,neighbours);
 		this.seperation(i,neighbours);
 		this.cohesion(i,neighbours);
+		
+		for(var pen = 0; pen < colors.length; pen++){
+			stroke(colors[pen])
+			strokeWeight(40)
+			point(50 * (pen + 1),50*(pen + 1))
+			strokeWeight(1)
+			stroke(0)
+		}
 
 		/* Draw */ 
 		push();
