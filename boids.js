@@ -134,7 +134,7 @@ Boids.prototype.draw = function() {
 			this.points[i].vy = Math.sin(this.points[i].angle)
 		}
 		for(var y = 0; y < this.pens.length; y++){
-			if(distance(this.points[i].x,this.points[i].y,this.pens[y].x,this.pens[y].y) < 10 && this.pens[y].colorNumber === this.points[i].color - 1){
+			if(distance(this.points[i].x,this.points[i].y,this.pens[y].x,this.pens[y].y) < 20 && this.pens[y].colorNumber === this.points[i].color - 1){
 				this.points[i].vx = 0;
 				this.points[i].vy = 0;
 			}
