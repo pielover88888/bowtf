@@ -121,17 +121,20 @@ Boids.prototype.cohesion = function(i, neighbours){
 
 /* Draws the flock */
 Boids.prototype.draw = function() {
-	this.nradius = this.slider.value()
+	/* Draw pens */
+	this.draw_pens()
 
+	this.nradius = this.slider.value()
 
 	for (var i = 0; i < this.points.length; i++) {
 
 		/* Intergrate velocity */
-		this.points[i].vx = Math.cos(this.points[i].angle)
-		this.points[i].vy = Math.sin(this.points[i].angle)
-
+		if(random(1) > 0.9){
+			this.points[i].vx = Math.cos(this.points[i].angle)
+			this.points[i].vy = Math.sin(this.points[i].angle)
+		}
 		for(var y = 0; y < this.pens.length; y++){
-			if(distance(this.points[i].x,this.points[i].y,this.pens[y].x,this.pens[y].y) < 25){
+			if(distance(this.points[i].x,this.points[i].y,this.pens[y].x,this.pens[y].y) < 10 && this.pens[y].colorNumber === this.points[i].color - 1){
 				this.points[i].vx = 0;
 				this.points[i].vy = 0;
 			}
@@ -179,8 +182,6 @@ Boids.prototype.draw = function() {
 		text(Math.round((this.points[i].angle) * (180/PI)),this.points[i].x,this.points[i].y + 15); // text
 		fill(0,0,0);
 
-		/* Draw pens */
-		this.draw_pens()
 
 	}
 }
