@@ -102,6 +102,10 @@ Boids.prototype.seperation = function(i, neighbours){
 		for (var j = 0; j < neighbours.indexes.length; j++) {
 			var n = neighbours.indexes[j]
 			var d = neighbours.distances[j]
+			if(neighbours.indexes[j].vx === 0){
+				console.log("DO NOT AVOID PEN")
+				return;
+			}
 			if (d <= this.close){
 				this.points[n].angle = -(this.points[n].angle*0.80)
 			}
