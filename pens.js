@@ -18,7 +18,7 @@ Boids.prototype.draw_pens = function () {
 	for (var i = 0; i < this.pens.length; i++) {
 		var pen = this.pens[i]
 		temp = hexToRgb(pen.color)
-		stroke(temp.r,temp.g,temp.b,0.5)
+		stroke(temp.r,temp.g,temp.b,255/2)
 		strokeWeight(40)
 		point(pen.x,pen.y)
 		strokeWeight(1)
