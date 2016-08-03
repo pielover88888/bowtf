@@ -6,6 +6,7 @@ function preload() {
 }
 
 function setup() {
+	start = new Date().getTime();
 	// Create the canvas
 	createCanvas(720, 400);
 	boids = new Boids(20);
@@ -16,4 +17,5 @@ function draw() {
 	background(130);
 	player.draw();
 	boids.draw();
+	text(time/1000 + " seconds",10,10)
 }

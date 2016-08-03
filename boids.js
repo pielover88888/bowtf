@@ -25,7 +25,7 @@ var Boids = function(count) {
 	this.nradius = 70
 	this.close = 20
 	this.slider = createSlider(0, 255, 100);
-	this.racebox = createCheckbox('Racism', false);
+	this.racebox = createCheckbox('Only flock with same color', false);
 	this.slider.position(10,40)
 
 	this.gen_pens()
@@ -75,9 +75,6 @@ Boids.prototype.getneighbours = function(n) {
 			distances.push(d)
 		}
 	}
-	strokeWeight(10);
-	point(ax,ay);
-	strokeWeight(1);
 	return {"indexes":neighbours,"angles":neighbours_angles,"distances":distances,ax:ax/ncount,ay:ay/ncount}
 }
 
@@ -185,7 +182,8 @@ Boids.prototype.draw = function() {
 		text([i],this.points[i].x,this.points[i].y + 5);
 		text(Math.round((this.points[i].angle) * (180/PI)),this.points[i].x,this.points[i].y + 15); // text
 		fill(0,0,0);
-
+		end = new Date().getTime();
+		time = end - start;
 
 	}
 }
