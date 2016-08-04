@@ -2,6 +2,7 @@ var img;
 var boids;
 var lastUpdate
 var dt = 0
+var now
 
 function preload() {
 	img = loadImage("assets/triangle_white.png");
@@ -17,9 +18,11 @@ function setup() {
 
 function draw() {
 	clear();
-	dt = Date.now() - lastUpdate
+	now = Date.now()
+	dt = now - lastUpdate
 	background(130);
 	player.draw();
 	boids.draw();
-	text(boids.time/1000 + " seconds",10,10)
+	lastUpdate = now
+	text(Math.round(boids.time)+ " seconds",10,10)
 }

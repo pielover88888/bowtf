@@ -184,6 +184,5 @@ Boids.prototype.draw = function() {
 		text(Math.round((this.points[i].angle) * (180/PI)),this.points[i].x,this.points[i].y + 15); // text
 		fill(0,0,0);
 		this.time += dt/1000
-
 	}
 }
